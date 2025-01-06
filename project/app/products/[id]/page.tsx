@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { use } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,8 @@ import { mockProducts } from '@/lib/data';
 import { ProductVariant } from '@/types/product';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = mockProducts.find((p) => p.id === params.id);
+  const productId = use(Promise.resolve(params.id));
+  const product = mockProducts.find((p) => p.id === productId);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(
     product?.variants[0]
   );
